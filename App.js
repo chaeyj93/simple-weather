@@ -1,8 +1,20 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import Loading from "./Loading";
-import { StyleSheet, Text, View } from "react-native";
+import * as Location from "expo-location";
 
-export default function App() {
-  return <Loading></Loading>;
+class App extends React.Component {
+  myGetLocation = async () => {
+    const location = await Location.getCurrentPositionAsync({}); //https://docs.expo.io/versions/latest/sdk/location/
+    console.log(location);
+  };
+
+  componentDidMount() {
+    this.myGetLocation();
+  }
+
+  render() {
+    return <Loading></Loading>;
+  }
 }
+
+export default App;

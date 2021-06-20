@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Loading() {
+function Loading() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Getting the weather</Text>
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export default Loading;
