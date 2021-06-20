@@ -2,11 +2,22 @@ import React from "react";
 import Loading from "./Loading";
 import * as Location from "expo-location";
 import { Alert } from "react-native";
+import axios from "axios";
+
+const API_KEY = "9f2e961120a7d1eab5534631e28bc476";
 
 class App extends React.Component {
   state = {
     isLoading: true,
   };
+  myGetWeather = async (lati, longi) => {
+    const { data } = await axios.get(
+      //axios 로 url에서 data 받아오는 거
+      `http://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${longi}&appid=${API_KEY}` //백틱사용하고
+    );
+    console.log(data);
+  };
+
   myGetLocation = async () => {
     try {
       // throw Error();
@@ -26,6 +37,7 @@ class App extends React.Component {
       } = await Location.getCurrentPositionAsync();
 
       this.setState({ isLoading: false });
+      this.myGetWeather(latitude, longitude);
     } catch (error) {
       Alert.alert("Can't find you.", "So sad");
     }
@@ -36,6 +48,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("App render");
     const { isLoading } = this.state;
     if (isLoading) return <Loading></Loading>;
     else return null;
