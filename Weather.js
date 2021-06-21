@@ -24,7 +24,7 @@ export default function Weather({ temp, condition }) {
   return (
     <LinearGradient
       // Background Linear Gradient
-      colors={weatherOptions["Clouds"].gradient} //{["#4c669f", "#3b5998", "#192f6a"]}
+      colors={weatherOptions[condition].gradient} //{["#4c669f", "#3b5998", "#192f6a"]}
       style={styles.container}
     >
       <StatusBar barStyle="light-content"></StatusBar>
@@ -32,15 +32,15 @@ export default function Weather({ temp, condition }) {
         <View style={styles.halfContainer}>
           <MaterialCommunityIcons
             size={96}
-            name={weatherOptions["Clouds"].iconName} //일단 condition 못먹어서 이렇게
+            name={weatherOptions[condition].iconName} //일단 condition 못먹어서 이렇게
             color="white"
           />
           <Text style={styles.temp}>{temp}℃</Text>
         </View>
         <View style={styles.halfContainer}>
-          <Text style={styles.title}>{weatherOptions["Clouds"].title}</Text>
+          <Text style={styles.title}>{weatherOptions[condition].title}</Text>
           <Text style={styles.subtitle}>
-            {weatherOptions["Clouds"].subtitle}
+            {weatherOptions[condition].subtitle}
           </Text>
         </View>
       </View>

@@ -23,7 +23,7 @@ class App extends React.Component {
       //axios 로 url에서 data 받아오는 거
       `http://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${longi}&appid=${API_KEY}&units=metric` //백틱사용하고
     );
-    console.log(weather[0].main); //이거 계속 data 로 놔뒀다가 에러 엄청 났음 - es6
+    console.log("난 컨디션에 이거넣을거야" + weather[0].main); //이거 계속 data 로 놔뒀다가 에러 엄청 났음 - es6
     this.setState({
       isLoading: false,
       condition: weather[0].main,
@@ -49,7 +49,7 @@ class App extends React.Component {
         coords: { latitude, longitude }, // Api 로 보내서 날짜를 받아올 파라미터
       } = await Location.getCurrentPositionAsync();
 
-      this.setState({ isLoading: false });
+      // this.setState({ isLoading: false });
       this.myGetWeather(latitude, longitude);
     } catch (error) {
       Alert.alert("Can't find you.", "So sad");
