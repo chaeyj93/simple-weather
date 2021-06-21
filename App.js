@@ -1,5 +1,6 @@
 import React from "react";
 import Loading from "./Loading";
+import Weather from "./Weather";
 import * as Location from "expo-location";
 import { Alert } from "react-native";
 import axios from "axios";
@@ -8,14 +9,26 @@ const API_KEY = "9f2e961120a7d1eab5534631e28bc476";
 
 class App extends React.Component {
   state = {
-    isLoading: true,
+    isLoading: true, //더 안하는데 어떻게 읽네?
+    condition: "",
+    temp: 0,
   };
   myGetWeather = async (lati, longi) => {
-    const { data } = await axios.get(
+    const {
+      data: {
+        main: { temp },
+        weather,
+      },
+    } = await axios.get(
       //axios 로 url에서 data 받아오는 거
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${longi}&appid=${API_KEY}` //백틱사용하고
+      `http://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${longi}&appid=${API_KEY}&units=metric` //백틱사용하고
     );
-    console.log(data);
+    console.log(weather[0].main); //이거 계속 data 로 놔뒀다가 에러 엄청 났음 - es6
+    this.setState({
+      isLoading: false,
+      condition: weather[0].main,
+      temp,
+    });
   };
 
   myGetLocation = async () => {
@@ -48,10 +61,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("App render");
-    const { isLoading } = this.state;
-    if (isLoading) return <Loading></Loading>;
-    else return null;
+    const { isLoading, temp, condition } = this.state;
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <Weather temp={Math.round(temp)} condition={condition} />
+    );
   }
 }
 
